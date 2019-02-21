@@ -1,0 +1,76 @@
+<html>
+    <head>
+        <title>BubbleSort</title>
+        <style>
+            table, td {
+                border-style: solid;
+                border-color: black;
+                border-width: 1px;
+                font-size: 150%;
+                margin-left: auto;
+                margin-right: auto;
+
+            }
+
+            td {
+                padding-left: 10px;
+                padding-right: 10px;
+            }
+
+            h1 {
+                text-align: center;
+            }
+
+        </style>
+    </head>
+    <body>
+        <h1>BubbleSort</h1>
+        <script>
+            let vet=[];
+            let valor=0;
+
+            do {
+                valor = parseInt(prompt("Entre com um número ou vazio para continuar"));
+                if (!isNaN(valor)){
+                    vet.push(valor);
+                }
+            } while(!isNaN(valor));
+
+
+            let table=document.createElement("table");
+            document.body.append(table);
+            desenhaLinha(vet,0,0);
+            bubblesort(vet);
+
+
+            function desenhaLinha(arr,el1,el2){
+                tr=document.createElement("tr");
+                table.appendChild(tr);
+                for(let i=0; i<arr.length; i++){
+                    td=document.createElement("td");
+                    tr.appendChild(td);
+                    td.innerHTML=arr[i];
+                    if(el1!=el2 && (i==el1 || i==el2)){
+                        td.setAttribute("bgcolor","#ddd");
+                    }
+                }
+            }
+
+            function bubblesort(arr){
+                for(let limite=arr.length-1;limite>0;limite--){
+                    for(let cAtual=0; cAtual<limite;cAtual++){
+                        desenhaLinha(arr,cAtual,cAtual+1);
+                        if (arr[cAtual]>arr[cAtual+1]){
+                            let temp=arr[cAtual+1];
+                            arr[cAtual+1]=arr[cAtual];
+                            arr[cAtual]=temp;
+                        }
+                    }
+                }
+            }
+
+
+
+        </script>
+    </body>
+</html>
