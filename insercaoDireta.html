@@ -1,6 +1,6 @@
 <html>
     <head>
-        <title>Seleção Direta Teste</title>
+        <title>Inserção Direta</title>
         <style>
             table, td {
                 border-style: solid;
@@ -24,7 +24,7 @@
         </style>
     </head>
     <body>
-        <h1>Seleção Direta</h1>
+        <h1>Inserção Direta</h1>
         <script>
             let vet=[25,57,48,37,12,92,86,33];
             let valor=0;
@@ -35,12 +35,12 @@
                     vet.push(valor);
                 }
             } while(!isNaN(valor));
+            */
 
-*/
             let table=document.createElement("table");
             document.body.append(table);
             desenhaLinha(vet,0,0);
-            selDireta(vet);
+            insercaoDireta(vet);
 
 
             function desenhaLinha(arr,el1,el2){
@@ -56,21 +56,22 @@
                 }
             }
 
-            function selDireta(arr){
-                for (let i=0; i<arr.length-1;i++){
+            function insercaoDireta(vet){
 
-                    indice=i;
-                    for(let j=i+1;j<arr.length;j++){
-                        if (arr[j]<arr[indice]){
-                            indice=j;
-                        }
-                    }
-                    desenhaLinha(arr,i,indice);
-                    temp = arr[i];
-                    arr[i]=arr[indice];
-                    arr[indice]=temp;
+               for(let posC = 1; posC<vet.length;posC++){
+                   for(let posA=0; posA<posC;posA++){
+                       if(vet[posC]<=vet[posA]){
+                           let temp = vet[posC];
+                           for (let i=posC;i>posA;i--){
+                               vet[i]=vet[i-1];
+                           }
+                           vet[posA]=temp;
+                           break;
+                       }
+                   }
+                   desenhaLinha(vet,0,0);
+               }
 
-                }
 
             }
 
