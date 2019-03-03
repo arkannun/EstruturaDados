@@ -1,0 +1,120 @@
+<html>
+    <head>
+        <title>Teste de Ordenação</title>
+        <style>
+            table, td {
+                border-style: solid;
+                border-color: black;
+                border-width: 1px;
+                font-size: 150%;
+                margin-left: auto;
+                margin-right: auto;
+
+            }
+
+            td {
+                padding-left: 10px;
+                padding-right: 10px;
+            }
+
+            h1 {
+                text-align: center;
+            }
+
+        </style>
+    </head>
+    <body>
+        <h1>Teste de Ordenação</h1>
+        <script>
+            let arr=[];
+            let arr1;
+            let arr2;
+            let arr3;
+            let test=[];
+            let numElementos=3000;
+            let numMin=0;
+            let numMax=99000;
+            let tempoGasto=0;
+
+            for(let i=0; i<numElementos;i++){
+                arr.push(Math.round(numMin+(Math.random()*(numMax-numMin))));
+            }
+            arr1=arr.slice();
+            arr2=arr.slice();
+            arr3=arr.slice();
+
+            p=document.createElement("p");
+            document.body.appendChild(p);
+            p.innerHTML=`Vetor Original: ${arr}`;
+
+            p=document.createElement("p");
+            document.body.appendChild(p);
+            tempoGasto=tempoDecorrido(0);
+            p.innerHTML=`BubbleSort: ${arr1}<br>Tempo Decorrido ${tempoGasto/1000} segundos`;
+
+            p=document.createElement("p");
+            document.body.appendChild(p);
+            tempoGasto=tempoDecorrido(2);
+            p.innerHTML=`Inserção Direta: ${arr3}<br>Tempo Decorrido ${tempoGasto/1000} segundos`;
+
+            p=document.createElement("p");
+            document.body.appendChild(p);
+            tempoGasto=tempoDecorrido(1);
+            p.innerHTML=`Seleção Direta: ${arr2}<br>Tempo Decorrido ${tempoGasto/1000} segundos`;
+
+
+
+
+
+            function tempoDecorrido(funcao) {
+                var inicio = performance.now();
+                if (funcao==0){bubblesort(arr1);}
+                if (funcao==1){selDireta(arr2);}
+                if (funcao==2){insercaoDireta(arr3);}
+                return performance.now() - inicio;
+            }
+
+            function selDireta(arr){
+                for (let i=0; i<arr.length-1;i++){
+                    indice=i;
+                    for(let j=i+1;j<arr.length;j++){
+                        if (arr[j]<arr[indice]){
+                            indice=j;
+                        }
+                    }
+                    temp = arr[i];
+                    arr[i]=arr[indice];
+                    arr[indice]=temp;
+                }
+            }
+
+            function insercaoDireta(arr){
+
+               for(let posC = 1; posC<arr.length;posC++){
+                   for(let posA=0; posA<posC;posA++){
+                       if(arr[posC]<=arr[posA]){
+                           let temp = arr[posC];
+                           for (let i=posC;i>posA;i--){
+                               arr[i]=arr[i-1];
+                           }
+                           arr[posA]=temp;
+                           break;
+                       }
+                   }
+               }
+            }
+
+            function bubblesort(arr){
+                for(let limite=arr.length-1;limite>0;limite--){
+                    for(let cAtual=0; cAtual<limite;cAtual++){
+                        if (arr[cAtual]>arr[cAtual+1]){
+                            let temp=arr[cAtual+1];
+                            arr[cAtual+1]=arr[cAtual];
+                            arr[cAtual]=temp;
+                        }
+                    }
+                }
+            }
+        </script>
+    </body>
+</html>
