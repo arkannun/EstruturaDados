@@ -31,7 +31,7 @@
             let arr2;
             let arr3;
             let test=[];
-            let numElementos=3000;
+            let numElementos=13000;
             let numMin=0;
             let numMax=99000;
             let tempoGasto=0;
@@ -42,6 +42,7 @@
             arr1=arr.slice();
             arr2=arr.slice();
             arr3=arr.slice();
+            arr4=arr.slice();
 
             p=document.createElement("p");
             document.body.appendChild(p);
@@ -50,17 +51,22 @@
             p=document.createElement("p");
             document.body.appendChild(p);
             tempoGasto=tempoDecorrido(0);
-            p.innerHTML=`BubbleSort: ${arr1}<br>Tempo Decorrido ${tempoGasto/1000} segundos`;
+            p.innerHTML=`BubbleSort: <b>Tempo Decorrido ${tempoGasto/1000} segundos</b>`;
 
             p=document.createElement("p");
             document.body.appendChild(p);
             tempoGasto=tempoDecorrido(2);
-            p.innerHTML=`Inserção Direta: ${arr3}<br>Tempo Decorrido ${tempoGasto/1000} segundos`;
+            p.innerHTML=`Inserção Direta: <b>Tempo Decorrido ${tempoGasto/1000} segundos</b>`;
 
             p=document.createElement("p");
             document.body.appendChild(p);
             tempoGasto=tempoDecorrido(1);
-            p.innerHTML=`Seleção Direta: ${arr2}<br>Tempo Decorrido ${tempoGasto/1000} segundos`;
+            p.innerHTML=`Seleção Direta: <b>Tempo Decorrido ${tempoGasto/1000} segundos</b>`;
+
+            p=document.createElement("p");
+            document.body.appendChild(p);
+            tempoGasto=tempoDecorrido(3);
+            p.innerHTML=`Quick Sort: <b>Tempo Decorrido ${tempoGasto/1000} segundos</b>`;
 
 
 
@@ -68,9 +74,20 @@
 
             function tempoDecorrido(funcao) {
                 var inicio = performance.now();
-                if (funcao==0){bubblesort(arr1);}
-                if (funcao==1){selDireta(arr2);}
-                if (funcao==2){insercaoDireta(arr3);}
+                switch(funcao) {
+                  case 0:
+                    bubblesort(arr1);
+                    break;
+                  case 1:
+                    selDireta(arr2);
+                    break;
+                  case 2:
+                    insercaoDireta(arr3);
+                    break;
+                  case 3:
+                    quicksort(arr4);
+                    break;
+                }
                 return performance.now() - inicio;
             }
 
@@ -114,6 +131,10 @@
                         }
                     }
                 }
+            }
+
+            function quicksort(arr){
+
             }
         </script>
     </body>
