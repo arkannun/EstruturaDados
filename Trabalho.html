@@ -26,51 +26,48 @@
     <body>
         <h1>Teste de Ordenação</h1>
         <script>
-            let arr=[];
-            let arr1;
-            let arr2;
-            let arr3;
-            let test=[];
-            let numElementos=13000;
+            let arr =[];
+            let arr1=[];
+            let arr2=[];
+            let arr3=[];
+            let tempoGasto =[];
+            let metodo =[];
+
+            let cd=8;//Casas decimais
+            let numElementos=100;
             let numMin=0;
-            let numMax=99000;
-            let tempoGasto=0;
+            let numMax=200000;
 
-            for(let i=0; i<numElementos;i++){
-                arr.push(Math.round(numMin+(Math.random()*(numMax-numMin))));
+
+            let table = document.createElement("table");
+            document.body.appendChild(table);
+            tr = document.createElement("tr");
+            table.appendChild(tr);
+            tr.innerHTML=`<td><b>Tamanho do vetor</b></td><td><b>BubbleSort</b></td><td><b>Seleção Direta</b></td><td><b>Inserção Direta</b></td><td><b>Quick Sort</b></td>`;
+
+            for (let n=0; n<4;n++){
+                arr =[];
+                arr1=[];
+                arr2=[];
+                arr3=[];
+                arr4=[];
+                tempoGasto=[];
+                for(let i=0; i<(numElementos*Math.pow(10,n));i++){
+                    arr.push(Math.round(numMin+(Math.random()*(numMax-numMin))));
+                }
+                arr1=arr.slice();
+                arr2=arr.slice();
+                arr3=arr.slice();
+                arr4=arr.slice();
+
+                for(let met=0;met<4;met++){
+                    tempoGasto.push(tempoDecorrido(met));
+                }
+
+                tr = document.createElement("tr");
+                table.appendChild(tr);
+                tr.innerHTML=`<td>${arr.length}</td><td>${tempoGasto[0].toFixed(cd)} s</td><td>${tempoGasto[1].toFixed(cd)} s</td><td>${tempoGasto[2].toFixed(cd)} s</td><td>${tempoGasto[3].toFixed(cd)} s</td>`;
             }
-            arr1=arr.slice();
-            arr2=arr.slice();
-            arr3=arr.slice();
-            arr4=arr.slice();
-
-            p=document.createElement("p");
-            document.body.appendChild(p);
-            p.innerHTML=`Vetor Original: ${arr}`;
-
-            p=document.createElement("p");
-            document.body.appendChild(p);
-            tempoGasto=tempoDecorrido(0);
-            p.innerHTML=`BubbleSort: <b>Tempo Decorrido ${tempoGasto/1000} segundos</b>`;
-
-            p=document.createElement("p");
-            document.body.appendChild(p);
-            tempoGasto=tempoDecorrido(2);
-            p.innerHTML=`Inserção Direta: <b>Tempo Decorrido ${tempoGasto/1000} segundos</b>`;
-
-            p=document.createElement("p");
-            document.body.appendChild(p);
-            tempoGasto=tempoDecorrido(1);
-            p.innerHTML=`Seleção Direta: <b>Tempo Decorrido ${tempoGasto/1000} segundos</b>`;
-
-            p=document.createElement("p");
-            document.body.appendChild(p);
-            tempoGasto=tempoDecorrido(3);
-            p.innerHTML=`Quick Sort: <b>Tempo Decorrido ${tempoGasto/1000} segundos</b>`;
-
-
-
-
 
             function tempoDecorrido(funcao) {
                 var inicio = performance.now();
@@ -85,10 +82,10 @@
                     insercaoDireta(arr3);
                     break;
                   case 3:
-                    quicksort(arr4);
+                    quicksort(arr4, 0, arr4.length-1);
                     break;
                 }
-                return performance.now() - inicio;
+                return (performance.now() - inicio)/1000;
             }
 
             function selDireta(arr){
@@ -106,7 +103,6 @@
             }
 
             function insercaoDireta(arr){
-
                for(let posC = 1; posC<arr.length;posC++){
                    for(let posA=0; posA<posC;posA++){
                        if(arr[posC]<=arr[posA]){
@@ -133,8 +129,30 @@
                 }
             }
 
-            function quicksort(arr){
-
+            function  quicksort(arr, left, right){
+                var i = left;
+                var j = right;
+                var tmp;
+                idPivo = (left + right) / 2;
+                var pivot = parseInt(arr[idPivo.toFixed()]);
+                while (i <= j){
+                    while (parseInt(arr[i]) < pivot)
+                        i++;
+                    while (parseInt(arr[j]) > pivot)
+                        j--;
+                    if (i <= j){
+                        tmp = arr[i];
+                        arr[i] = arr[j];
+                        arr[j] = tmp;
+                        i++;
+                        j--;
+                    }
+                }
+                if (left < j)
+                    quicksort(arr, left, j);
+                if (i < right)
+                    quicksort(arr, i, right);
+                return arr;
             }
         </script>
     </body>
